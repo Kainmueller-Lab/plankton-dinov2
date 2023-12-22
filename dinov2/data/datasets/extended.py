@@ -23,14 +23,8 @@ class ExtendedVisionDataset(VisionDataset):
         raise NotImplementedError
 
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
-        try:
-            image_data = self.get_image_data(index)
-            image = ImageDataDecoder(image_data).decode()
-        except Exception as e:
-            # image_data = self.get_image_data(index)
-            image = np.random.randint(0, 255, (224, 224, 3), dtype=np.uint8)
-            image = Image.fromarray(image)
-            # raise RuntimeError(f"can not read image for sample {index}") from e
+        image_data = self.get_image_data(index)
+        image = ImageDataDecoder(image_data).decode()
         target = self.get_target(index)
         target = TargetDecoder(target).decode()
 
